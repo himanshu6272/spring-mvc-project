@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <style>
     <#include "./assets/bootstrap/bootstrap.min.css">
+    </style>
 </head>
 <style type="text/css">
     .footer{

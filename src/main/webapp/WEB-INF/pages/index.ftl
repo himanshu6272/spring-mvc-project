@@ -5,8 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <#include "./assets/bootstrap/bootstrap.min.css">
+    <style>
     <#include "./assets/css/style.css">
+    <#include "./assets/bootstrap/bootstrap.min.css">
+    </style>
 </head>
 
 <body class="bg-warning">
@@ -18,8 +20,8 @@
                 <p class="lead text-white">We specialise in enterprise software development, leveraging our expertise in Python, Java, and Mobile App development to turn innovative ideas into successful software solutions. With our offshore team of skilled developers, we bring a wealth of experience and knowledge to the table, driving results through cutting-edge technology and precision in every detail.</p>
                 <hr class="my-4 bg-warning">
                 <p class="lead">
-                    <a class="btn btn-outline-warning btn-lg mr-3" href="register.jsp" role="button">Register</a>
-                    <a class="btn btn-outline-warning btn-lg" href="login.jsp" role="button">Login</a>
+                    <a class="btn btn-outline-warning btn-lg mr-3" href="register" role="button">Register</a>
+                    <a class="btn btn-outline-warning btn-lg" href="login" role="button">Login</a>
                 </p>
             </div>
         </div>

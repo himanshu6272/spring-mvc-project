@@ -1,3 +1,4 @@
+<script type="text/js">
 $(document).ready(function(){
     let flag = false;
 
@@ -82,3 +83,4 @@ $(document).ready(function(){
                           }
 
 })
+</script>

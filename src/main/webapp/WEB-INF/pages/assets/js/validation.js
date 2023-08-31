@@ -227,55 +227,55 @@ $(document).ready(function () {
     $("#dateHelp").empty();
   });
 
-    $("#registration-form").on('submit', function (event) {
-                       event.preventDefault();
-                       form = new FormData(this);
-                       console.log(form);
-                       $.ajax({
-                           url: 'registerServlet',
-                           type: 'POST',
-                           data: form,
-                           success: function (data, textStatus, jqXHR) {
-                                console.log(data);
-                               if(data.trim() === 'done'){
-                               $("#errorPopup").removeClass("bg-danger").addClass("bg-success");
-                               let message = "Registered Successfully";
-                               showErrorPopup(message);
-                               setTimeout(function () {
-                                    window.location.href = "login.jsp";
-                                }, 3000);
-
-                               }else if(data.trim() === 'updated'){
-                               $("#errorPopup").removeClass("bg-danger").addClass("bg-success");
-                               let message = "User Updated Successfully";
-                               showErrorPopup(message);
-                               setTimeout(function () {
-                                    window.location.href = "view.jsp";
-                                }, 3000);
-
-                               }else if(data.trim() === 'exist'){
-                               let message = "User already exist with this email use different email !!!!";
-                               showErrorPopup(message);
-                               }
-                               else{
-                               showErrorPopup(data);
-                               }
-                           },
-                           error: function (jqXHR, textStatus, errorThrown) {
-                               console.log(jqXHR);
-                           },
-                           processData: false,
-                           contentType: false
-                       });
-                   });
-
-                   // Function to show the error popup
-    function showErrorPopup(message) {
-        $("#errorPopup").html(message).show();
-        setTimeout(function () {
-            $("#errorPopup").hide();
-        }, 3000);
-    }
+//    $("#registration-form").on('submit', function (event) {
+//                       event.preventDefault();
+//                       form = new FormData(this);
+//                       console.log(form);
+//                       $.ajax({
+//                           url: 'create',
+//                           type: 'POST',
+//                           data: form,
+//                           success: function (data, textStatus, jqXHR) {
+//                                console.log(data);
+//                               if(data.trim() === 'done'){
+//                               $("#errorPopup").removeClass("bg-danger").addClass("bg-success");
+//                               let message = "Registered Successfully";
+//                               showErrorPopup(message);
+//                               setTimeout(function () {
+//                                    window.location.href = "login.jsp";
+//                                }, 3000);
+//
+//                               }else if(data.trim() === 'updated'){
+//                               $("#errorPopup").removeClass("bg-danger").addClass("bg-success");
+//                               let message = "User Updated Successfully";
+//                               showErrorPopup(message);
+//                               setTimeout(function () {
+//                                    window.location.href = "view.jsp";
+//                                }, 3000);
+//
+//                               }else if(data.trim() === 'exist'){
+//                               let message = "User already exist with this email use different email !!!!";
+//                               showErrorPopup(message);
+//                               }
+//                               else{
+//                               showErrorPopup(data);
+//                               }
+//                           },
+//                           error: function (jqXHR, textStatus, errorThrown) {
+//                               console.log(jqXHR);
+//                           },
+//                           processData: false,
+//                           contentType: false
+//                       });
+//                   });
+//
+//                   // Function to show the error popup
+//    function showErrorPopup(message) {
+//        $("#errorPopup").html(message).show();
+//        setTimeout(function () {
+//            $("#errorPopup").hide();
+//        }, 3000);
+//    }
 
     $("#profile-photo").on('change', function(){
         let inputFile = $(this);
@@ -331,18 +331,18 @@ $("#add-address-btn").click(function(){
       $("#add-address-btn").removeClass("d-none");
     })
 
-        var id = 1;
+        var id = 0;
         $("#save-address-btn").click(function(){
             let street = $("#inputStreet").val();
             let city = $("#inputCity").val();
             let state = $("#inputState").val();
             let zip = $("#inputZip").val();
             let country = $("#inputCountry").val();
-            let addElement = '<div class="address border border-black p-2 m-3"><div class="d-flex mb-2"><input hidden name="addressId"><div class="d-inline mr-2"><label>Street</label><br><input class="street" name="street" value="'+street+
-            '"><br></div><div class="d-inline mr-2"><label>City</label><br><input class="city" name="city" value="'+city+
-            '"><br></div><div class="d-inline mr-2"><label>State</label><br><input class="state" name="state" value="'+state+
-            '"><br></div><div class="d-inline mr-2"><label>Zip</label><br><input class="zip" name="zip" value="'+zip+
-            '"><br></div><div class="d-inline mr-2"><label>Country</label><br><input class="country" name="country" value="'+country+
+            let addElement = '<div class="address border border-black p-2 m-3"><div class="d-flex mb-2"><input hidden name="addressId"><div class="d-inline mr-2"><label>Street</label><br><input class="street" name="addresses['+id+'].street" value="'+street+
+            '"><br></div><div class="d-inline mr-2"><label>City</label><br><input class="city" name="addresses['+id+'].city" value="'+city+
+            '"><br></div><div class="d-inline mr-2"><label>State</label><br><input class="state" name="addresses['+id+'].state" value="'+state+
+            '"><br></div><div class="d-inline mr-2"><label>Zip</label><br><input class="zip" name="addresses['+id+'].zip" value="'+zip+
+            '"><br></div><div class="d-inline mr-2"><label>Country</label><br><input class="country" name="addresses['+id+'].country" value="'+country+
             '"><br></div></div><button type="button" class="btn btn-primary d-block remove-address-btn mr-1">Remove</button><small class="form-text addressesHelp"></small></div>';
             $("#addresses").append(addElement);
             $("#inputStreet").val("");
@@ -360,5 +360,6 @@ $(document).on("click", ".remove-address-btn", function() {
 
 
 });
+
 
 

@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <#include "./assets/bootstrap/bootstrap.min.css">
-    <#include "./assets/css/style.css">
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <#--  <link rel="stylesheet" href="./assets/bootstrap/bootstrap.min.css">
-    <link rel="stylesheet" href="./assets/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> -->
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <title>Registration Form</title>
+    <style>
+        <#include "./assets/css/style.css">
+        <#include "./assets/bootstrap/bootstrap.min.css">
+    </style>
 </head>
 
 <body class="bg-warning">
@@ -18,27 +19,24 @@
         <div class="container">
             <div class="row" id="register-user-header">
                 <div class="col bg-secondary text-center user-icon-div p-3">
-                    <div id="profile-image" class="mx-auto">
-                        <img alt="profile-image" src="./assets/images/user.png">
-                    </div>
                     <h3 class="text-white">Register here</h3>
                 </div>
             </div>
             <div class="row">
                 <div class="col p-0 bg-light">
-                    <form id="registration-form" method="post" enctype="multipart/form-data"
+                    <form id="registration-form" action="create" method="post" enctype="multipart/form-data"
                     class="border border-solid border-black rounded-lg p-4">
                     <div class="row">
                         <div class="form-group col-6">
                             <label for="fname">First name</label>
                             <input type="text" class="form-control" id="fname" placeholder="Enter first name"
-                               name="firstname">
+                               name="firstName">
                             <small id="fnameHelp" class="form-text"></small>
                         </div>
                         <div class="form-group col-6">
                             <label for="lname">Last name</label>
                             <input type="text" class="form-control" id="lname" placeholder="Enter last name"
-                               name="lastname">
+                               name="lastName">
                             <small id="lnameHelp" class="form-text"></small>
                         </div>
                     </div>
@@ -121,7 +119,7 @@
                     <div class="row">
                         <div class="form-group col-6">
                             <label for="security-que">Security question: </label>
-                            <select class="form-control" name="security-que" id="security-que">
+                            <select class="form-control" name="securityQuestion" id="security-que">
                                 <option value="none">None</option>
                                 <option>Who is your favourite Bollywood Star?</option>
                                 <option>Who is your favourite Cricketer?</option>
@@ -129,13 +127,13 @@
                                 <option>Who you love the most?</option>
                             </select>
                             <small id="securityQuestionHelp" class="form-text mb-4"></small>
-                            <input type="text" class="form-control" id="security-answer" placeholder="Enter answer here" name="security-answer">
+                            <input type="text" class="form-control" id="security-answer" placeholder="Enter answer here" name="securityAnswer">
                             <small id="securityanswerHelp" class="form-text"></small>
                         </div>
 
                         <div class="form-group col-6 mt-4">
                             <label for="profile-photo">Profile Photo</label><br>
-                            <input type="file" id="profile-photo" name="profile-photo">
+                            <input type="file" id="profile-photo" name="profieImage">
                             <small id="profilephotoHelp" class="form-text"></small>
                         </div>
                     </div>
@@ -147,17 +145,11 @@
             </div>
         </div>
 <#include "footer.ftl">
-<#include "./assets/jquery/jQuery 3.6.4.js">
-<#-- <script src="./assets/jquery/jQuery 3.6.4.js"></script>
-<script src="./assets/js/validation.js"></script>
-<script src="./assets/jquery/jquery-ui.js"></script> -->
+<script>
+        <#include "./assets/jquery/jQuery 3.6.4.js">
+        <#include "./assets/js/validation.js">
+        <#include "./assets/jquery/jquery-ui.js">
+</script>
 
 </body>
-<#-- <%
-}else if(user.equals("user")){
-    response.sendRedirect("view");
- }else{
-    response.sendRedirect("admin");
- }
-%> -->
 </html>
