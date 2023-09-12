@@ -1,6 +1,7 @@
 package springmvc.dao;
 
 import org.springframework.stereotype.Repository;
+import springmvc.models.Address;
 import springmvc.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.HibernateTemplate;
@@ -9,16 +10,16 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Repository
-
 public class UserDaoImpl implements UserDao{
     @Autowired
     private HibernateTemplate hibernateTemplate;
+
+    String query = "from User where email=?0";
     @Transactional
     public int saveUser(User user) {
         return  (int) this.hibernateTemplate.save(user);
     }
 
-    @Override
     public List<User> getAll() {
         return this.hibernateTemplate.loadAll(User.class);
     }
@@ -28,15 +29,24 @@ public class UserDaoImpl implements UserDao{
     }
 
     @Transactional
-    public void delete(int id) {
-        User user = this.hibernateTemplate.load(User.class, id);
+    public void delete(User user) {
         this.hibernateTemplate.delete(user);
     }
 
     @Transactional
-    public void update(int id){
-        User user = this.hibernateTemplate.load(User.class, id);
+    public void update(User user){
         this.hibernateTemplate.update(user);
+    }
+
+    @Override
+    public User getByEmail(String email) {
+        List<User> list = (List<User>) this.hibernateTemplate.find(query, email);
+        User user = null;
+        if(list!=null && (list.size() > 0))
+        {
+            user=list.get(0);
+        }
+        return user;
     }
 
 

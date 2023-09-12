@@ -14,4 +14,9 @@
     <url-pattern>/</url-pattern>
   </servlet-mapping>
 
+  <error-page>
+    <error-code>404</error-code> <!-- You can add other error codes as needed -->
+    <location>/error</location> <!-- Mapping to your custom error controller -->
+  </error-page>
+
 </web-app>

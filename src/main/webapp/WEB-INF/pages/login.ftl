@@ -10,7 +10,7 @@
     </style>
 </head>
 <body class="bg-warning">
-    <div id="errorPopup" class="alert bg-danger d-none" role="alert"></div>
+    <#if errorMessage?has_content><div id="errorPopup" class="alert bg-danger" role="alert">${errorMessage}</div></#if>
     <#include "header.ftl">
         <div class="container div-cont">
             <div class="row w-50 mx-auto pt-5">
@@ -20,7 +20,7 @@
             </div>
             <div class="row w-50 mx-auto">
                 <div class="col w-75 bg-dark p-5 rounded-bottom">
-                    <form action="loginServlet" class="border border-solid border-warning rounded-lg p-4 text-warning" method="post" id="login-form">
+                    <form action="loginUser" class="border border-solid border-warning rounded-lg p-4 text-warning" method="post" id="login-form">
                         <div class="form-group">
                             <label for="email-address">Email</label>
                             <input type="text" class="form-control" id="email-address" placeholder="enter email" name="email">

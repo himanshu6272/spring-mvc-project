@@ -1,6 +1,13 @@
 $(document).ready(function() {
   let flag = false;
 
+  let errMess = $("#errorPopup")[0].innerText;
+  if(errMess === "Invalid credential"){
+        setTimeout(function () {
+            window.location.replace("login");
+        }, 3000);
+  }
+
 
 
   let emailAddress = function () {
@@ -85,7 +92,15 @@ $(document).ready(function() {
 //          $("#errorPopup").hide();
 //      }, 3000);
 //  }
-
+    function showDivForInterval() {
+                var myDiv = document.getElementById("errorPopup");
+                myDiv.style.display = "block"; // Show the div
+                // Set a timeout to hide the div after 5 seconds (adjust as needed)
+                setTimeout(function () {
+                    myDiv.style.display = "none"; // Hide the div
+                }, 3000); // 5000 milliseconds (5 seconds)
+    }
+    window.onload = showDivForInterval;
 
     $("#email-address").blur(emailAddress);
     $("#password").blur(pwd);

@@ -1,6 +1,7 @@
 $(document).ready(function() {
-    $("#login-btn").html("Logout").removeAttr("href").attr("href", "logoutServlet");
+    $("#login-btn").html("Logout").removeAttr("href").attr("href", "/SpringMVCProject/logout");
     $("#register-btn").addClass("d-none");
+    $("#dashboard-btn").removeClass("d-none");
     $("#update-profile-btn").removeClass("d-none");
     $(".navbar-brand").addClass("d-none");
 

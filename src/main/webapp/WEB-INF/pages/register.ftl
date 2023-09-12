@@ -14,7 +14,11 @@
 </head>
 
 <body class="bg-warning">
-    <div id="errorPopup" class="alert bg-danger" role="alert"></div>
+    <#-- <#if errors?has_content>
+    <#list errors as error>
+    <div id="errorPopup" class="alert bg-danger" role="alert">${error}</div>
+    </#list>
+    </#if> -->
     <#include "header.ftl">
         <div class="container">
             <div class="row" id="register-user-header">

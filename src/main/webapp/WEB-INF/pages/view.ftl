@@ -19,24 +19,25 @@
   <div class="row" id="register-user-header">
     <div class="col bg-secondary text-center user-icon-div p-3">
       <div id="profile-image" class="mx-auto">
-        <img src="${imgUrl}" alt="Displayed Image">
+        <img alt="Profile photo" src="${imgUrl}" />
       </div>
       <h3 class="text-white">User Details</h3>
     </div>
   </div>
   <div class="row">
     <div class="col p-0 bg-light">
-      <form  onsubmit="return validate()" action="registerServlet" id="registration-form" method="post" enctype="multipart/form-data"
+      <form action="/SpringMVCProject/edit" id="registration-form" method="post" enctype="multipart/form-data"
                               class="border border-solid border-black rounded-lg p-4">
         <div class="row">
           <div class="form-group col-6">
             <label for="fname">First name</label>
-            <input disabled type="text" class="form-control" id="fname" name="firstname" value="${user.getFirstName()}">
+            <input hidden type="text" name="id" value="${user.getId()}">
+            <input disabled type="text" class="form-control" id="fname" name="firstName" value="${user.getFirstName()}">
             <small id="fnameHelp" class="form-text"></small>
           </div>
           <div class="form-group col-6">
             <label for="lname">Last name</label>
-            <input disabled type="text" class="form-control" id="lname" name="lastname" value="${user.getLastName()}">
+            <input disabled type="text" class="form-control" id="lname" name="lastName" value="${user.getLastName()}">
             <small id="lnameHelp" class="form-text"></small>
           </div>
         </div>
@@ -56,7 +57,7 @@
         <div class="row">
           <div class="col-6">
             <div class="row">
-
+              <#if loggedIn == "ADMIN">
               <div class="form-group col-5">
                 <label class="d-block">Role</label>
                 <input disabled type="radio" name="role" class="role" id="admin" value="ADMIN" <#if user.role == 'ADMIN'>checked</#if>>
@@ -65,6 +66,7 @@
                 <label for="user">User</label>
                 <small id="rolehelp" class="form-text"></small>
               </div>
+              </#if>
               <div class="form-group col-7">
                 <label class="d-block">Gender</label>
                 <input disabled type="radio" name="gender" class="gender" id="male" value="male" <#if user.gender == 'male'>checked</#if>>
@@ -102,7 +104,7 @@
           <#list addresses as address>
           <div class="address border border-black p-2 m-3">
           <div class="d-flex mb-2">
-          <input hidden name="addressId" value="${address.getId()}">
+          <input hidden name="aid" value="${address.getAid()}">
           <div class="d-inline mr-2">
           <label>Street</label><br>
           <input disabled name="street" value="${address.getStreet()}"><br>
@@ -129,7 +131,7 @@
           </#list>
         </div>
 
-        <div class="row">
+        <#-- <div class="row">
           <div class="form-group col-6">
             <label for="password">Password</label>
             <input disabled type="password" class="form-control" id="password" name="password" value="${user.getPassword()}">
@@ -144,7 +146,7 @@
           <div class="row">
             <div class="form-group col-6">
                 <label for="security-que">Security question: </label>
-                <select class="form-control" name="security-que" id="security-que">
+                <select class="form-control" name="securityQuestion" id="security-que">
                     <option value="none">None</option>
                     <option>Who is your favourite Bollywood Star?</option>
                     <option>Who is your favourite Cricketer?</option>
@@ -152,13 +154,13 @@
                     <option>Who you love the most?</option>
                 </select>
                 <small id="securityQuestionHelp" class="form-text mb-4"></small>
-                <input type="text" class="form-control" id="security-answer" placeholder="Enter answer here" name="security-answer" value="${user.getSecurityAnswer()}">
+                <input type="text" class="form-control" id="security-answer" placeholder="Enter answer here" name="securityAnswer" value="${user.getSecurityAnswer()}">
                 <small id="securityanswerHelp" class="form-text"></small>
-            </div>
+            </div> -->
 
             <div class="form-group col-6 mt-4">
                 <label for="profile-photo">Profile Photo</label><br>
-                <input type="file" id="profile-photo" name="profile-photo">
+                <input type="file" id="profile-photo" name="profieImage">
                 <small id="profilephotoHelp" class="form-text"></small>
             </div>
           </div>

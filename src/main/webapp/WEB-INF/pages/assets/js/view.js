@@ -9,7 +9,7 @@ $(document).ready(function(){
         $("#add-address-btn").removeClass("d-none");
    })
 
-    $("#login-btn").html("Logout").removeAttr("href").attr("href", "logoutServlet");
+    $("#login-btn").html("Logout").removeAttr("href").attr("href", "logout");
     $("#register-btn").remove();
 
     $("#add-address-btn").click(function(){

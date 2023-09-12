@@ -1,6 +1,7 @@
 package springmvc.dao;
 
 import org.springframework.transaction.annotation.Transactional;
+import springmvc.models.Address;
 import springmvc.models.User;
 import org.springframework.stereotype.Repository;
 
@@ -14,7 +15,10 @@ public interface UserDao {
 
     public User getById(int id);
 
-    public void delete(int id);
+    public void delete(User user);
 
-    public void update(int id);
+    public void update(User user);
+
+    public User getByEmail(String email);
+
 }

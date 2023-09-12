@@ -34,7 +34,7 @@
         <td>${user.getRole()}</td>
         <td class="w-25">
         <a href="view/${user.getId()}" class="btn btn-warning py-1 view-user-btn">View</a>
-        <a href="" class="btn btn-warning py-1 remove-user-btn">Delete</a>
+        <a href="delete/${user.getId()}" class="btn btn-warning py-1 remove-user-btn">Delete</a>
         </td>
       </tr>
       </#list>

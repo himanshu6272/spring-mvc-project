@@ -2,6 +2,9 @@ package springmvc.models;
 
 import javax.persistence.*;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
+
 import java.io.Serializable;
 
 @Entity
@@ -9,11 +12,17 @@ import java.io.Serializable;
 public class Address implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private int aid;
+    @NotEmpty(message = "*Street is required")
     private String street;
+    @NotEmpty(message = "*City is required")
     private String city;
+    @NotEmpty(message = "*State is required")
     private String state;
+    @NotEmpty(message = "*Zip is required")
+    @Pattern(regexp = "^[0-9]{6,7}$", message = "please enter valid zipcode")
     private String zip;
+    @NotEmpty(message = "*Country is required")
     private String country;
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -30,8 +39,8 @@ public class Address implements Serializable {
         this.country = country;
     }
 
-    public Address(int id, String street, String city, String state, String zip, String country) {
-        this.id = id;
+    public Address(int aid, String street, String city, String state, String zip, String country) {
+        this.aid = aid;
         this.street = street;
         this.city = city;
         this.state = state;
@@ -39,12 +48,13 @@ public class Address implements Serializable {
         this.country = country;
     }
 
-    public int getId() {
-        return id;
+
+    public int getAid() {
+        return aid;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setAid(int aid) {
+        this.aid = aid;
     }
 
     public String getStreet() {
@@ -98,7 +108,7 @@ public class Address implements Serializable {
     @Override
     public String toString() {
         return "Address{" +
-                "id=" + id +
+                "id=" + aid +
                 ", street='" + street + '\'' +
                 ", city='" + city + '\'' +
                 ", state='" + state + '\'' +
