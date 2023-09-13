@@ -102,8 +102,6 @@
           <url>http://localhost:1227/manager/text</url>
           <server>tomcatserver</server>
           <path>/SpringMVCProject</path>
-          <username>himanshu</username>
-          <password>himanshu</password>
         </configuration>
       </plugin>
     </plugins>

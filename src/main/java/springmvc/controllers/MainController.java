@@ -12,6 +12,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import springmvc.models.Address;
 import springmvc.models.User;
 import springmvc.services.UserService;
+import springmvc.utility.CheckValidation;
 import springmvc.utility.EncryptPwd;
 
 import javax.servlet.http.HttpServletRequest;
@@ -24,6 +25,8 @@ import java.util.Objects;
 
 @Controller
 public class MainController {
+    @Autowired
+    CheckValidation validation;
     @Autowired
     EncryptPwd encryptPwd;
     @Autowired
@@ -55,8 +58,9 @@ public class MainController {
 
 
     @RequestMapping(path = "/create", method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public String createUser(@Valid @ModelAttribute User user, BindingResult br, @RequestParam("profieImage") CommonsMultipartFile file, Model model){
+    public String createUser(@Valid @ModelAttribute User user, BindingResult br, @RequestParam("profieImage") CommonsMultipartFile file, Model model, @RequestParam("cnfPassword") String cnfPassword){
         List<String> errors = new ArrayList<String>();
+        String message =validation.validData(user,cnfPassword);
         log.info(br);
         if (br.hasErrors()){
             List<FieldError> fieldErrors =br.getFieldErrors();
@@ -66,6 +70,12 @@ public class MainController {
             }
             log.info(errors);
             model.addAttribute("errors", errors);
+            model.addAttribute("user", user);
+            return "register";
+        }else if (!message.equals("valid")){
+            errors.add(message);
+            model.addAttribute("errors",errors);
+            model.addAttribute("user",user);
             return "register";
         }else {
             byte[] data = file.getBytes();
@@ -125,8 +135,14 @@ public class MainController {
             }
             index++;
         }
+        User oldUser = this.userService.getUserById(user.getId());
         byte[] data = file.getBytes();
-        user.setEmail(this.userService.getUserById(user.getId()).getEmail());
+        user.setEmail(oldUser.getEmail());
+        if (user.getRole().equals(null)){
+            user.setRole(oldUser.getRole());
+        }
+        user.setSecurityQuestion(oldUser.getSecurityQuestion());
+        user.setSecurityAnswer(oldUser.getSecurityAnswer());
         user.setImage(data);
         this.userService.updateUser(user);
         log.info("editing user");

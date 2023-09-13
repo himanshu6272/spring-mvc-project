@@ -1,15 +1,11 @@
 package springmvc.models;
 
-import javax.validation.GroupSequence;
-import javax.validation.Valid;
-
 import javax.persistence.*;
+import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
-
 import java.io.Serializable;
-import java.util.Arrays;
 import java.util.List;
 
 @Entity
@@ -19,28 +15,29 @@ public class User implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @NotEmpty(message = "*Firstname is required")
-    @Pattern(regexp = "^[A-Z,a-z]{2,8}$", message = "please fill valid firstname")
+    @Pattern(regexp = "^[A-Z,a-z]{2,8}$", message = "*Please fill valid firstname")
     private String firstName;
     @NotEmpty(message = "*Lastname is required")
-    @Pattern(regexp = "^[A-Z,a-z]{2,8}$", message = "please fill valid lastname")
+    @Pattern(regexp = "^[A-Z,a-z]{2,8}$", message = "*Please fill valid lastname")
     private String lastName;
     @NotEmpty(message = "*Mobile is required")
-    @Pattern(regexp = "^[0-9]{1,11}$", message = "please enter valid mobile number")
+    @Pattern(regexp = "^[0-9]{1,11}$", message = "*Please enter valid mobile number")
     private String mobile;
     @NotEmpty(message = "*Email is required")
-    @Pattern(regexp = "^[A-Za-z0-9+_.-]+@(.+)$", message = "please enter valid email")
+    @Pattern(regexp = "^[A-Za-z0-9+_.-]+@(.+)$", message = "*Please enter valid email")
     private String email;
-    @NotNull(message = "please select the role")
+    @NotNull(message = "*Please select the role")
     private String role;
-    @NotEmpty(message = "please select the date")
+    @NotEmpty(message = "*Please select the date")
     private String dob;
-    @NotNull(message = "please select the gender")
+    @NotNull(message = "*Please select the gender")
     private String gender;
 //    @Pattern(regexp = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$", message = "please enter valid password")
+    @NotEmpty(message = "*Password is required")
     private String password;
-    @NotNull(message = "please select the security question")
+    @NotNull(message = "*Please select the security question")
     private String securityQuestion;
-    @NotEmpty(message = "please select the security answer")
+    @NotEmpty(message = "*Please select the security answer")
     private String securityAnswer;
     @Lob
     @Column(columnDefinition = "LONGBLOB")

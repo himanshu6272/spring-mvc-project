@@ -1,12 +1,12 @@
 $(document).ready(function () {
   let flag = false;
 
-    let errMess = $(".errorPopup")[0].innerText;
-      if(errMess === "Invalid credential"){
-            setTimeout(function () {
-                window.location.replace("login");
-            }, 3000);
-      }
+//    let errMess = $(".errorPopup")[0].innerText;
+//      if(errMess === "Invalid credential"){
+//            setTimeout(function () {
+//                window.location.replace("login");
+//            }, 3000);
+//      }
 
   let firstName = function () {
     let fname = $("#fname").val();

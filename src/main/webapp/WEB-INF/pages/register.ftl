@@ -36,13 +36,13 @@
                         <div class="form-group col-6">
                             <label for="fname">First name</label>
                             <input type="text" class="form-control" id="fname" placeholder="Enter first name"
-                               name="firstName">
+                               name="firstName" <#if user?has_content>value="${user.firstName}"</#if>">
                             <small id="fnameHelp" class="form-text"></small>
                         </div>
                         <div class="form-group col-6">
                             <label for="lname">Last name</label>
                             <input type="text" class="form-control" id="lname" placeholder="Enter last name"
-                               name="lastName">
+                               name="lastName" <#if user?has_content>value="${user.lastName}"</#if>">
                             <small id="lnameHelp" class="form-text"></small>
                         </div>
                     </div>
@@ -50,13 +50,13 @@
                         <div class="form-group col-6">
                             <label for="mobile-number">Mobile number</label>
                             <input type="text" class="form-control" id="mobile-number" placeholder="Enter mobile number"
-                               name="mobile">
+                               name="mobile" <#if user?has_content>value="${user.mobile}"</#if>">
                             <small id="mobileHelp" class="form-text"></small>
                         </div>
                         <div class="form-group col-6">
                             <label for="email-address">Email address</label>
                             <input type="email" class="form-control" id="email-address" placeholder="Enter email"
-                               name="email">
+                               name="email" <#if user?has_content>value="${user.email}"</#if>">
                             <small id="emailHelp" class="form-text"></small>
                         </div>
                     </div>
@@ -66,19 +66,19 @@
                             <div class="row">
                                 <div class="form-group col-5">
                                     <label class="d-block">Role</label>
-                                    <input type="radio" name="role" class="role" id="admin" value="ADMIN">
+                                    <input <#if user?has_content><#if user.role?has_content && user.role == "ADMIN">checked</#if></#if> type="radio" name="role" class="role" id="admin" value="ADMIN">
                                     <label for="admin">Admin</label>
-                                    <input type="radio" name="role" class="role" id="user" value="USER">
+                                    <input <#if user?has_content><#if user.role?has_content && user.role == "USER">checked</#if></#if> type="radio" name="role" class="role" id="user" value="USER">
                                     <label for="user">User</label>
                                     <small id="roleHelp" class="form-text"></small>
                                 </div>
                                 <div class="form-group col-7">
                                     <label class="d-block">Gender</label>
-                                    <input type="radio" name="gender" class="gender" id="male" value="male">
+                                    <input <#if user?has_content><#if user.gender?has_content && user.gender == "male">checked</#if></#if> type="radio" name="gender" class="gender" id="male" value="male">
                                     <label for="male">Male</label>
-                                    <input type="radio" name="gender" class="gender" id="female" value="female">
+                                    <input <#if user?has_content><#if user.gender?has_content && user.gender == "female">checked</#if></#if> type="radio" name="gender" class="gender" id="female" value="female">
                                     <label for="female">Female</label>
-                                    <input type="radio" name="gender" class="gender" id="others" value="others">
+                                    <input <#if user?has_content><#if user.gender?has_content && user.gender == "others">checked</#if></#if> type="radio" name="gender" class="gender" id="others" value="others">
                                     <label for="others">Others</label>
                                     <small id="genderHelp" class="form-text"></small>
                                 </div>
@@ -86,7 +86,7 @@
                         </div>
                         <div class="form-group col-6">
                             <label for="dob">Date of Birth</label><br>
-                            <input type="text" id="dob" name="dob">
+                            <input type="text" id="dob" name="dob" <#if user?has_content>value="${user.dob}"</#if>">
                             <span id="calendar-icon" class="fa fa-calendar"></span>
                             <small id="dateHelp" class="form-text"></small>
                         </div>
@@ -112,12 +112,13 @@
                         <div class="form-group col-6">
                             <label for="password">Password</label>
                             <input type="password" class="form-control" id="password" placeholder="Password"
-                               name="password">
+                               name="password" <#if user?has_content>value="${user.password}"</#if>">
                             <small id="passwordHelp" class="form-text"></small>
                         </div>
                         <div class="form-group col-6">
                             <label for="cnf-password">Confirm password</label>
-                            <input type="password" class="form-control" id="cnf-password" placeholder="Confirm password">
+                            <input type="password" class="form-control" id="cnf-password" placeholder="Confirm password"
+                            name="cnfPassword" <#if user?has_content>value="${user.password}"</#if>">
                             <small id="cnfpasswordHelp" class="form-text"></small>
                         </div>
                     </div>
@@ -125,7 +126,7 @@
                     <div class="row">
                         <div class="form-group col-6">
                             <label for="security-que">Security question: </label>
-                            <select class="form-control" name="securityQuestion" id="security-que">
+                            <select class="form-control" name="securityQuestion" id="security-que" <#if user?has_content>value="${user.securityQuestion}"</#if>">
                                 <option value="none">None</option>
                                 <option>Who is your favourite Bollywood Star?</option>
                                 <option>Who is your favourite Cricketer?</option>
@@ -133,7 +134,8 @@
                                 <option>Who you love the most?</option>
                             </select>
                             <small id="securityQuestionHelp" class="form-text mb-4"></small>
-                            <input type="text" class="form-control" id="security-answer" placeholder="Enter answer here" name="securityAnswer">
+                            <input type="text" class="form-control" id="security-answer" placeholder="Enter answer here" name="securityAnswer"
+                            <#if user?has_content>value="${user.securityAnswer}"</#if>">
                             <small id="securityanswerHelp" class="form-text"></small>
                         </div>
 
@@ -153,8 +155,8 @@
 <#include "footer.ftl">
 <script>
         <#include "./assets/jquery/jQuery 3.6.4.js">
-        <#-- <#include "./assets/js/validation.js"> -->
         <#include "./assets/jquery/jquery-ui.js">
+        <#include "./assets/js/validation.js">
 </script>
 
 </body>

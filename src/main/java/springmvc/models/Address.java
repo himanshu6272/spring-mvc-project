@@ -20,7 +20,7 @@ public class Address implements Serializable {
     @NotEmpty(message = "*State is required")
     private String state;
     @NotEmpty(message = "*Zip is required")
-    @Pattern(regexp = "^[0-9]{6,7}$", message = "please enter valid zipcode")
+    @Pattern(regexp = "^[0-9]{6,7}$", message = "*Please enter valid zipcode")
     private String zip;
     @NotEmpty(message = "*Country is required")
     private String country;
