@@ -44,7 +44,6 @@ public class User implements Serializable {
     private String securityAnswer;
     @Lob
     @Column(columnDefinition = "LONGBLOB")
-    @NotNull(message = "please select the image")
     private byte[] image;
 
 

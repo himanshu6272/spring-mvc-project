@@ -14,11 +14,13 @@
 </head>
 
 <body class="bg-warning">
-    <#-- <#if errors?has_content>
+    <div style="position:fixed;top:80px;left:20px;z-index:2;">
+    <#if errors?has_content>
     <#list errors as error>
-    <div id="errorPopup" class="alert bg-danger" role="alert">${error}</div>
+    <div class="errorPopup alert bg-danger py-0 m-1" role="alert">${error}</div>
     </#list>
-    </#if> -->
+    </#if>
+    </div>
     <#include "header.ftl">
         <div class="container">
             <div class="row" id="register-user-header">
@@ -151,7 +153,7 @@
 <#include "footer.ftl">
 <script>
         <#include "./assets/jquery/jQuery 3.6.4.js">
-        <#include "./assets/js/validation.js">
+        <#-- <#include "./assets/js/validation.js"> -->
         <#include "./assets/jquery/jquery-ui.js">
 </script>
 

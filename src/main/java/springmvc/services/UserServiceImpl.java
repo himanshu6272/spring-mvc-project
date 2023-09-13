@@ -73,4 +73,20 @@ public class UserServiceImpl implements UserService{
     public void deleteUser(User user) {
         this.userDao.delete(user);
     }
+
+    @Override
+    public boolean userExist(String email) {
+        User user = this.userDao.getByEmail(email);
+        if (user == null){
+            return false;
+        }else {
+            return true;
+        }
+
+    }
+
+    @Override
+    public void updatePassword(String email, String password) {
+        this.userDao.updatePassword(email,password);
+    }
 }

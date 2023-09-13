@@ -43,11 +43,19 @@ public class MainController {
     public String loginPage(){
         return "login";
     }
+    @RequestMapping("/forgot")
+    public String forgotPage(){
+        return "forgot";
+    }
+    @RequestMapping("/reset")
+    public String resetPassPage(){
+        return "reset";
+    }
 
 
 
     @RequestMapping(path = "/create", method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public String createUser(@Valid @ModelAttribute User user, BindingResult br, @RequestParam("profieImage") CommonsMultipartFile file){
+    public String createUser(@Valid @ModelAttribute User user, BindingResult br, @RequestParam("profieImage") CommonsMultipartFile file, Model model){
         List<String> errors = new ArrayList<String>();
         log.info(br);
         if (br.hasErrors()){
@@ -56,7 +64,8 @@ public class MainController {
             {
                 errors.add(err.getDefaultMessage());
             }
-//            model.addAttribute("errors", errors);
+            log.info(errors);
+            model.addAttribute("errors", errors);
             return "register";
         }else {
             byte[] data = file.getBytes();
@@ -201,6 +210,31 @@ public class MainController {
         User user = this.userService.getUserById(id);
         this.userService.deleteUser(user);
         return "redirect:/admin";
+    }
+
+    @RequestMapping(path = "/forgotPassword", method = RequestMethod.POST)
+    public String forgotPassword(@RequestParam("email") String email, @RequestParam("securityQuestion") String question,
+                                 @RequestParam("securityAnswer") String answer, Model model, HttpSession session){
+        User user = this.userService.getUserByEmail(email);
+        if(this.userService.userExist(email)){
+            if (question.equals(user.getSecurityQuestion()) && answer.equals(user.getSecurityAnswer())){
+                log.info("http://localhost:9595/SpringMVCProject/reset");
+                session.setAttribute("email", email);
+                model.addAttribute("error", "Reset link is sent to the log");
+            }else {
+                model.addAttribute("error", "Invalid Credential");
+            }
+        }else {
+            model.addAttribute("error", "User Does not exists with this email");
+        }
+        return "forgot";
+    }
+
+    @RequestMapping(path = "/resetPassword", method = RequestMethod.POST)
+    public String resetPassword(@RequestParam("email") String email, @RequestParam("password") String password){
+        String encryptedPwd = this.encryptPwd.encryption(password);
+        this.userService.updatePassword(email,encryptedPwd);
+        return "redirect:/login";
     }
 
 

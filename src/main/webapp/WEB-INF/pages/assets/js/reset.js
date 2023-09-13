@@ -1,4 +1,3 @@
-<script type="text/js">
 $(document).ready(function(){
     let flag = false;
 
@@ -44,43 +43,42 @@ $(document).ready(function(){
       $("#submit-btn").click(pwd);
       $("#submit-btn").click(cnfPassword);
 
-      $("#reset-form").on('submit', function (event) {
-                             event.preventDefault();
-                             form = new FormData(this);
-                             console.log(form);
-                             $.ajax({
-                                 url: 'resetServlet',
-                                 type: 'POST',
-                                 data: form,
-                                 success: function (data, textStatus, jqXHR) {
-                                     console.log(data);
-                                     if(data.trim() === 'reset'){
-                                     $("#errorPopup").removeClass("bg-danger").addClass("bg-success");
-                                     let message = "Password reset successfully";
-                                     showErrorPopup(message);
-                                     setTimeout(function () {
-                                          window.location.href = "login.jsp";
-                                      }, 3000);
-
-                                     }else{
-                                     showErrorPopup(data);
-                                     }
-                                 },
-                                 error: function (jqXHR, textStatus, errorThrown) {
-                                     console.log(jqXHR);
-                                 },
-                                 processData: false,
-                                 contentType: false
-                             });
-                         });
-
-                         // Function to show the error popup
-                         function showErrorPopup(message) {
-                             $("#errorPopup").html(message).show();
-                             setTimeout(function () {
-                                 $("#errorPopup").hide();
-                             }, 3000);
-                          }
+//      $("#reset-form").on('submit', function (event) {
+//                             event.preventDefault();
+//                             form = new FormData(this);
+//                             console.log(form);
+//                             $.ajax({
+//                                 url: 'resetServlet',
+//                                 type: 'POST',
+//                                 data: form,
+//                                 success: function (data, textStatus, jqXHR) {
+//                                     console.log(data);
+//                                     if(data.trim() === 'reset'){
+//                                     $("#errorPopup").removeClass("bg-danger").addClass("bg-success");
+//                                     let message = "Password reset successfully";
+//                                     showErrorPopup(message);
+//                                     setTimeout(function () {
+//                                          window.location.href = "login.jsp";
+//                                      }, 3000);
+//
+//                                     }else{
+//                                     showErrorPopup(data);
+//                                     }
+//                                 },
+//                                 error: function (jqXHR, textStatus, errorThrown) {
+//                                     console.log(jqXHR);
+//                                 },
+//                                 processData: false,
+//                                 contentType: false
+//                             });
+//                         });
+//
+//                         // Function to show the error popup
+//                         function showErrorPopup(message) {
+//                             $("#errorPopup").html(message).show();
+//                             setTimeout(function () {
+//                                 $("#errorPopup").hide();
+//                             }, 3000);
+//                          }
 
 })
-</script>

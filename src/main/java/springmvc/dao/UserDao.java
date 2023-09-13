@@ -21,4 +21,5 @@ public interface UserDao {
 
     public User getByEmail(String email);
 
+    void updatePassword(String email, String password);
 }

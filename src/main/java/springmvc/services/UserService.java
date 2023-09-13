@@ -25,4 +25,8 @@ public interface UserService {
     public void deleteAddress(Address address);
 
     void deleteUser(User user);
+
+    public boolean userExist(String email);
+
+    void updatePassword(String email, String password);
 }

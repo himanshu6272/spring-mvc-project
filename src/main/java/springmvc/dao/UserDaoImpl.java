@@ -1,5 +1,7 @@
 package springmvc.dao;
 
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.springframework.stereotype.Repository;
 import springmvc.models.Address;
 import springmvc.models.User;
@@ -47,6 +49,19 @@ public class UserDaoImpl implements UserDao{
             user=list.get(0);
         }
         return user;
+    }
+
+    @Transactional
+    public void updatePassword(String email, String password) {
+        String hql = "UPDATE User SET password = :newPassword WHERE email = :email";
+        Session session = this.hibernateTemplate.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+                session.createQuery(hql)
+                .setParameter("newPassword", password)
+                .setParameter("email", email)
+                .executeUpdate();
+                transaction.commit();
+                session.close();
     }
 
 

@@ -1,7 +1,13 @@
-<script type="text/js">
 $(document).ready(function(){
 
     let flag = false;
+
+    let errMsg = $("#errorPopup")[0].innerText;
+    if(errMsg != "" || errMsg != undefined){
+        setTimeout(function () {
+                    window.location.replace("forgot");
+        }, 3000);
+    }
 
     let emailAddress = function () {
         let emailExp = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
@@ -49,43 +55,42 @@ $(document).ready(function(){
       $("#submit-btn").click(securityQuestion);
       $("#submit-btn").click(securityAnswer);
 
-      $("#forgot-form").on('submit', function (event) {
-                             event.preventDefault();
-                             form = new FormData(this);
-                             console.log(form);
-                             $.ajax({
-                                 url: 'forgotServlet',
-                                 type: 'POST',
-                                 data: form,
-                                 success: function (data, textStatus, jqXHR) {
-                                     console.log(data);
-                                     if(data.trim() === 'sent'){
-                                     $("#errorPopup").removeClass("bg-danger").addClass("bg-success");
-                                     let message = "Reset link is sent to the log";
-                                     showErrorPopup(message);
-                                     setTimeout(function () {
-                                          window.location.href = "login.jsp";
-                                      }, 3000);
-
-                                     }else{
-                                     showErrorPopup(data);
-                                     }
-                                 },
-                                 error: function (jqXHR, textStatus, errorThrown) {
-                                     console.log(jqXHR);
-                                 },
-                                 processData: false,
-                                 contentType: false
-                             });
-                         });
-
-                         // Function to show the error popup
-                         function showErrorPopup(message) {
-                             $("#errorPopup").html(message).show();
-                             setTimeout(function () {
-                                 $("#errorPopup").hide();
-                             }, 3000);
-                          }
+//      $("#forgot-form").on('submit', function (event) {
+//                             event.preventDefault();
+//                             form = new FormData(this);
+//                             console.log(form);
+//                             $.ajax({
+//                                 url: 'forgot',
+//                                 type: 'POST',
+//                                 data: form,
+//                                 success: function (data, textStatus, jqXHR) {
+//                                     console.log(data);
+//                                     if(data.trim() === 'sent'){
+//                                     $("#errorPopup").removeClass("bg-danger").addClass("bg-success");
+//                                     let message = "Reset link is sent to the log";
+//                                     showErrorPopup(message);
+//                                     setTimeout(function () {
+//                                          window.location.href = "login.jsp";
+//                                      }, 3000);
+//
+//                                     }else{
+//                                     showErrorPopup(data);
+//                                     }
+//                                 },
+//                                 error: function (jqXHR, textStatus, errorThrown) {
+//                                     console.log(jqXHR);
+//                                 },
+//                                 processData: false,
+//                                 contentType: false
+//                             });
+//                         });
+//
+//                         // Function to show the error popup
+//                         function showErrorPopup(message) {
+//                             $("#errorPopup").html(message).show();
+//                             setTimeout(function () {
+//                                 $("#errorPopup").hide();
+//                             }, 3000);
+//                         }
 
 })
-</script>

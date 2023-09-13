@@ -10,7 +10,7 @@
 </head>
 
 <body class="bg-warning">
-<div id="errorPopup" class="alert bg-danger" role="alert"></div>
+<#if error?has_content><div id="errorPopup" class="alert bg-danger" role="alert">${error}</div></#if>
 <#include "header.ftl">
 <div class="container div-cont">
   <div class="row w-50 mx-auto">
@@ -20,10 +20,10 @@
   </div>
   <div class="row w-50 mx-auto">
     <div class="col w-75 bg-dark p-5 rounded-bottom">
-    <form action="resetServlet" class="border border-solid border-warning rounded-lg p-5 text-warning" method="post" id="reset-form">
+    <form action="resetPassword" class="border border-solid border-warning rounded-lg p-5 text-warning" method="post" id="reset-form">
             <div class="form-group">
                 <label for="password">Password</label>
-                <input hidden class="form-control" id="email" name="email" value="<%= email %>">
+                <input hidden class="form-control" id="email" name="email" value="${email}">
                 <input type="password" class="form-control" id="password" placeholder="Password"
                        name="password">
                 <small id="passwordHelp" class="form-text"></small>
