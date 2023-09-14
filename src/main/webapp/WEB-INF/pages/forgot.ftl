@@ -11,6 +11,7 @@
 
 <body class="bg-warning">
 <#if error?has_content><div id="errorPopup" class="alert bg-danger" role="alert">${error}</div></#if>
+<div id="successPopup"  class="alert bg-success p-2 d-none" role="alert"><#if success?has_content>${success}</#if></div>
 <#include "header.ftl">
 <div class="container div-cont">
   <div class="row w-50 mx-auto">

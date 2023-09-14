@@ -1,12 +1,17 @@
 $(document).ready(function () {
-  let flag = false;
 
-//    let errMess = $(".errorPopup")[0].innerText;
-//      if(errMess === "Invalid credential"){
-//            setTimeout(function () {
-//                window.location.replace("login");
-//            }, 3000);
-//      }
+    setTimeout(function() {
+           $(".errorPopup").addClass("d-none");
+    }, 3000);
+
+    let success = $("#successPopup")[0].innerText;
+              if(success === "User Registered Successfully"){
+              $("#successPopup").removeClass("d-none");
+                    setTimeout(function () {
+                        window.location.replace("login");
+                    }, 3000);
+              }
+
 
   let firstName = function () {
     let fname = $("#fname").val();
@@ -87,9 +92,6 @@ $(document).ready(function () {
     let currentDate = new Date().toISOString().split("T")[0];
     if (dob == "" || dob == undefined) {
       $("#dateHelp").html("enter date of birth!").addClass("text-danger");
-      return false;
-    } else if (dob > currentDate) {
-      $("#dateHelp").html("please enter valid date!").addClass("text-danger");
       return false;
     } else {
       $("#dateHelp").empty();
@@ -305,7 +307,11 @@ $(document).ready(function () {
   $("#mobile-number").blur(mobileNumber);
   $("#email-address").blur(emailAddress);
   $("#dob").blur(dateOfBirth);
-  $("#security-que").blur(securityQue);
+  $("#dob").on('change', function(){
+    $("#dateHelp").empty();
+  });
+
+  $("#security-answer").blur(securityQue);
   $("#password").blur(pwd);
   $("#cnf-password").blur(cnfPassword);
   $("#submit-btn").click(firstName);
@@ -338,6 +344,9 @@ $("#add-address-btn").click(function(){
       $("#add-address-btn").removeClass("d-none");
     })
 
+
+
+
         var id = 0;
         $("#save-address-btn").click(function(){
             let street = $("#inputStreet").val();
@@ -345,25 +354,63 @@ $("#add-address-btn").click(function(){
             let state = $("#inputState").val();
             let zip = $("#inputZip").val();
             let country = $("#inputCountry").val();
-            let addElement = '<div class="address border border-black p-2 m-3"><div class="d-flex mb-2"><input hidden name="addressId"><div class="d-inline mr-2"><label>Street</label><br><input class="street" name="addresses['+id+'].street" value="'+street+
-            '"><br></div><div class="d-inline mr-2"><label>City</label><br><input class="city" name="addresses['+id+'].city" value="'+city+
-            '"><br></div><div class="d-inline mr-2"><label>State</label><br><input class="state" name="addresses['+id+'].state" value="'+state+
-            '"><br></div><div class="d-inline mr-2"><label>Zip</label><br><input class="zip" name="addresses['+id+'].zip" value="'+zip+
-            '"><br></div><div class="d-inline mr-2"><label>Country</label><br><input class="country" name="addresses['+id+'].country" value="'+country+
-            '"><br></div></div><button type="button" class="btn btn-primary d-block remove-address-btn mr-1">Remove</button><small class="form-text addressesHelp"></small></div>';
-            $("#addresses").append(addElement);
-            $("#inputStreet").val("");
-            $("#inputCity").val("");
-            $("#inputState").val("");
-            $("#inputZip").val("");
-            $("#inputCountry").val("");
 
-            id = id + 1;
+            if(street === "" || street === undefined){
+                $("#streetHelp").html("street is required").addClass("text-danger");
+            }else{
+                $("#streetHelp").empty();
+            }
+             if(city === "" || city === undefined){
+                $("#cityHelp").html("city is required").addClass("text-danger");
+            }else{
+                $("#cityHelp").empty();
+            }
+             if(state === "" || state === undefined){
+                $("#stateHelp").html("state is required").addClass("text-danger");
+            }else{
+            $("#stateHelp").empty();
+            }
+
+            let zipExp = /^[0-9]{6,7}$/;
+             if(zip === "" || zip === undefined){
+                $("#zipHelp").html("zip is required").addClass("text-danger");
+            }else if (zipExp.test(zip) == false) {
+                        $("#zipHelp")
+                          .html("enter valid zip code!")
+                          .addClass("text-danger");
+            }else if(country === "" || country === undefined){
+                $("#countryHelp").html("country is required").addClass("text-danger");
+            }else{
+                $("#zipHelp").empty();
+                $("#countryHelp").empty();
+                let addElement = '<div class="address border border-black p-2 m-3"><input hidden name="addressId"<label>Street</label><br><input readonly class="street form-control" name="addresses['+id+'].street" value="'+street+
+                            '"><label>City</label><br><input readonly class="city form-control" name="addresses['+id+'].city" value="'+city+
+                            '"><label>State</label><br><input readonly class="state form-control" name="addresses['+id+'].state" value="'+state+
+                            '"><label>Zip</label><br><input readonly class="zip form-control" name="addresses['+id+'].zip" value="'+zip+
+                            '"><label>Country</label><br><input readonly class="country form-control" name="addresses['+id+'].country" value="'+country+
+                            '"></div><small class="form-text addressesHelp"></small></div>';
+                            $("#addresses").append(addElement);
+                            $("#inputStreet").val("");
+                            $("#inputCity").val("");
+                            $("#inputState").val("");
+                            $("#inputZip").val("");
+                            $("#inputCountry").val("");
+                            id = id + 1;
+            }
+
         })
 
 $(document).on("click", ".remove-address-btn", function() {
     $(this).closest(".address").remove();
 });
+
+//    $("#submit-btn").click(function(){
+//        setTimeout(function(event){
+//            event.preventDefault();
+//        }, 2000)
+//    })
+
+
 
 
 });

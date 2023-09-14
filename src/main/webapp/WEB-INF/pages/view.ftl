@@ -14,6 +14,7 @@
 <body class="bg-warning">
 <div id="errorPopup" class="alert" role="alert">
 </div>
+<div id="successPopup"  class="alert bg-success p-2 d-none" role="alert"><#if success?has_content>${success}</#if></div>
 <#include "header.ftl">
 <div class="container div-cont">
   <div class="row" id="register-user-header">
@@ -26,7 +27,7 @@
   </div>
   <div class="row">
     <div class="col p-0 bg-light">
-      <form action="/SpringMVCProject/edit" id="registration-form" method="post" enctype="multipart/form-data"
+      <form action="edit" id="registration-form" method="post" enctype="multipart/form-data"
                               class="border border-solid border-black rounded-lg p-4">
         <div class="row">
           <div class="form-group col-6">
@@ -92,41 +93,35 @@
           <button type="button" class="btn btn-outline-primary mb-2 d-none" id="add-address-btn">Add Address</button>
           <small id="addressHelp" class="form-text"></small>
           <div class="form-group w-100 d-none mt-3" id="address">
-            <input disabled type="text" class="form-control mb-2"  id="inputStreet" placeholder="enter street">
-            <input disabled type="text" class="form-control mb-2" id="inputCity" placeholder="enter city">
-            <input disabled type="text" class="form-control  mb-2" id="inputState" placeholder="enter state">
-            <input disabled type="text" class="form-control mb-2" id="inputZip" placeholder="enter zipcode">
-            <input disabled type="text" class="form-control " id="inputCountry" placeholder="enter country">
+            <input disabled type="text" class="form-control mt-2"  id="inputStreet" placeholder="enter street">
+            <small id="streetHelp" class="form-text mt-0"></small>
+            <input disabled type="text" class="form-control mt-2" id="inputCity" placeholder="enter city">
+            <small id="cityHelp" class="form-text mt-0"></small>
+            <input disabled type="text" class="form-control  mt-2" id="inputState" placeholder="enter state">
+            <small id="stateHelp" class="form-text mt-0"></small>
+            <input disabled type="text" class="form-control mt-2" id="inputZip" placeholder="enter zipcode">
+            <small id="zipHelp" class="form-text mt-0"></small>
+            <input disabled type="text" class="form-control mt-2" id="inputCountry" placeholder="enter country">
+            <small id="countryHelp" class="form-text mt-0 mb-3"></small>
             <button type="button" class="btn btn-primary" id="save-address-btn">Add</button>
             <button type="button" class="btn btn-primary" id="cancel-address-btn">Cancel</button>
           </div>
+
           <div id="addresses" class="mb-3 border border-solid border-warning">
           <#list addresses as address>
           <div class="address border border-black p-2 m-3">
-          <div class="d-flex mb-2">
           <input hidden name="aid" value="${address.getAid()}">
-          <div class="d-inline mr-2">
           <label>Street</label><br>
-          <input disabled name="street" value="${address.getStreet()}"><br>
-          </div>
-          <div class="d-inline mr-2">
+          <input disabled class="form-control" name="street" value="${address.getStreet()}">
           <label>City</label><br>
-          <input disabled name="city" value="${address.getCity()}"><br>
-          </div>
-          <div class="d-inline mr-2">
+          <input disabled class="form-control" name="city" value="${address.getCity()}">
           <label>State</label><br>
-          <input disabled name="state" value="${address.getState()}"><br>
-          </div>
-          <div class="d-inline mr-2">
+          <input disabled class="form-control" name="state" value="${address.getState()}">
           <label>Zip</label><br>
-          <input disabled name="zip" value="${address.getZip()}"><br>
-          </div>
-          <div class="d-inline mr-2">
+          <input disabled class="form-control" name="zip" value="${address.getZip()}">
           <label>Country</label><br>
-          <input disabled name="country" value="${address.getCountry()}"><br>
-          </div>
-          </div>
-          <a type="button" class="btn btn-primary remove-address-btn text-white">Remove</a>
+          <input disabled class="form-control" name="country" value="${address.getCountry()}">
+          <a type="button" class="btn btn-primary remove-address-btn text-white mt-3">Remove</a>
           </div>
           </#list>
         </div>
@@ -178,9 +173,7 @@
 <#include "footer.ftl">
 <script >
     <#include "./assets/jquery/jQuery 3.6.4.js">
-
     <#include "./assets/jquery/jquery-ui.js">
-    <#include "./assets/js/validation.js">
     <#include "./assets/js/view.js">
 </script>
 

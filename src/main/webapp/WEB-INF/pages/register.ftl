@@ -14,13 +14,17 @@
 </head>
 
 <body class="bg-warning">
-    <div style="position:fixed;top:80px;left:20px;z-index:2;">
+    <div id="errorDiv">
     <#if errors?has_content>
     <#list errors as error>
     <div class="errorPopup alert bg-danger py-0 m-1" role="alert">${error}</div>
     </#list>
     </#if>
     </div>
+
+    <div id="successPopup"  class="alert bg-success p-2 d-none" role="alert"><#if success?has_content>${success}</#if></div>
+
+
     <#include "header.ftl">
         <div class="container">
             <div class="row" id="register-user-header">
@@ -86,7 +90,7 @@
                         </div>
                         <div class="form-group col-6">
                             <label for="dob">Date of Birth</label><br>
-                            <input type="text" id="dob" name="dob" <#if user?has_content>value="${user.dob}"</#if>">
+                            <input readonly type="text" id="dob" name="dob" <#if user?has_content>value="${user.dob}"</#if>">
                             <span id="calendar-icon" class="fa fa-calendar"></span>
                             <small id="dateHelp" class="form-text"></small>
                         </div>
@@ -97,13 +101,18 @@
                         <button type="button" class="btn btn-outline-primary" id="add-address-btn">Add Address</button>
                         <small id="addressHelp" class="form-text"></small>
                         <div class="form-group w-100 d-none mt-3" id="address">
-                            <input type="text" class="form-control mb-2" placeholder="Street" id="inputStreet" >
-                            <input type="text" class="form-control mb-2" id="inputCity" placeholder="City" >
-                            <input type="text" class="form-control  mb-2" id="inputState" placeholder="State" >
-                            <input type="text" class="form-control mb-2" id="inputZip" placeholder="Zip" >
-                            <input type="text" class="form-control " id="inputCountry" placeholder="County" >
-                            <button type="button" class="btn btn-primary" id="save-address-btn">Add</button>
-                            <button type="button" class="btn btn-primary" id="cancel-address-btn">Cancel</button>
+                            <input type="text" class="form-control mt-2" placeholder="Street" id="inputStreet" >
+                            <small id="streetHelp" class="form-text mt-0"></small>
+                            <input type="text" class="form-control mt-2" id="inputCity" placeholder="City" >
+                            <small id="cityHelp" class="form-text mt-0" ></small>
+                            <input type="text" class="form-control  mt-2" id="inputState" placeholder="State" >
+                            <small id="stateHelp" class="form-text mt-0"></small>
+                            <input type="text" class="form-control mt-2" id="inputZip" placeholder="Zip" >
+                            <small id="zipHelp" class="form-text mt-0"></small>
+                            <input type="text" class="form-control mt-2" id="inputCountry" placeholder="County" >
+                            <small id="countryHelp" class="form-text mt-0"></small>
+                            <button type="button" class="btn btn-primary mt-2" id="save-address-btn">Add</button>
+                            <button type="button" class="btn btn-primary mt-2" id="cancel-address-btn">Cancel</button>
                         </div>
                         <div id="addresses"></div>
                     </div>
@@ -126,8 +135,7 @@
                     <div class="row">
                         <div class="form-group col-6">
                             <label for="security-que">Security question: </label>
-                            <select class="form-control" name="securityQuestion" id="security-que" <#if user?has_content>value="${user.securityQuestion}"</#if>">
-                                <option value="none">None</option>
+                            <select class="form-control" name="securityQuestion" id="security-que" <#if user?has_content>value="${user.securityQuestion}"</#if>>
                                 <option>Who is your favourite Bollywood Star?</option>
                                 <option>Who is your favourite Cricketer?</option>
                                 <option>Who is your favourite Teacher?</option>

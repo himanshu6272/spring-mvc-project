@@ -20,7 +20,7 @@
   </div>
   <div class="row w-50 mx-auto">
     <div class="col w-75 bg-dark p-5 rounded-bottom">
-    <form action="resetPassword" class="border border-solid border-warning rounded-lg p-5 text-warning" method="post" id="reset-form">
+    <form action="Password" class="border border-solid border-warning rounded-lg p-5 text-warning" method="post" id="reset-form">
             <div class="form-group">
                 <label for="password">Password</label>
                 <input hidden class="form-control" id="email" name="email" value="${email}">

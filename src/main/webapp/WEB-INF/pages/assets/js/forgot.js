@@ -2,8 +2,8 @@ $(document).ready(function(){
 
     let flag = false;
 
-    let errMsg = $("#errorPopup")[0].innerText;
-    if(errMsg != "" || errMsg != undefined){
+    let errMsg = $("#successPopup")[0].innerText;
+    if(errMsg === "Reset link is sent to the log"){
         setTimeout(function () {
                     window.location.replace("forgot");
         }, 3000);

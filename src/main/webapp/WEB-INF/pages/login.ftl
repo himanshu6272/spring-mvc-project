@@ -28,7 +28,7 @@
                         </div>
                         <div class="form-group">
                             <label for="password">Password</label>
-                            <input type="text" class="form-control" id="password" placeholder="enter password" name="password">
+                            <input type="password" class="form-control" id="password" placeholder="enter password" name="password">
                             <small id="passwordHelp" class="form-text"></small>
                         </div>
                         <input type="submit" class="btn btn-outline-warning" id="submit-btn" value="Submit">

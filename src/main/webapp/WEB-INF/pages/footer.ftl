@@ -13,7 +13,7 @@
     }
 </style>
 <body>
-<footer class="footer p-3">
+<footer class="footer mt-auto p-3">
     <div class="container">
         <div class="row">
             <div class="col-6"></div>

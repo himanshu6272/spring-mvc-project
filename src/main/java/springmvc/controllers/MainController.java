@@ -18,6 +18,8 @@ import springmvc.utility.EncryptPwd;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
@@ -25,6 +27,9 @@ import java.util.Objects;
 
 @Controller
 public class MainController {
+
+    Base64.Encoder encoder =Base64.getEncoder();
+    Base64.Decoder decoder = Base64.getDecoder();
     @Autowired
     CheckValidation validation;
     @Autowired
@@ -50,8 +55,9 @@ public class MainController {
     public String forgotPage(){
         return "forgot";
     }
-    @RequestMapping("/reset")
-    public String resetPassPage(){
+    @RequestMapping("/reset/{email}")
+    public String resetPassPage(@PathVariable("email") String email, Model model){
+        model.addAttribute("email", email);
         return "reset";
     }
 
@@ -84,9 +90,9 @@ public class MainController {
             user.setImage(data);
             this.userService.registerUser(user);
             log.info("Creating user");
-            return "login";
+            model.addAttribute("success", "User Registered Successfully");
+            return "register";
         }
-
 
     }
 
@@ -138,13 +144,15 @@ public class MainController {
         User oldUser = this.userService.getUserById(user.getId());
         byte[] data = file.getBytes();
         user.setEmail(oldUser.getEmail());
-        if (user.getRole().equals(null)){
+        if (user.getRole() == null){
             user.setRole(oldUser.getRole());
         }
         user.setSecurityQuestion(oldUser.getSecurityQuestion());
         user.setSecurityAnswer(oldUser.getSecurityAnswer());
+        user.setPassword(oldUser.getPassword());
         user.setImage(data);
         this.userService.updateUser(user);
+        request.getSession().setAttribute("success", "User Updated Successfully");
         log.info("editing user");
         return "redirect:/view";
     }
@@ -193,7 +201,8 @@ public class MainController {
     @RequestMapping(path = "/loginUser", method = RequestMethod.POST)
     public String login(@RequestParam("email") String email, @RequestParam("password") String password, Model model, HttpSession session){
         User user = this.userService.getUserByEmail(email);
-        if (user != null && password.equals(user.getPassword())){
+        String encryptedPwd = this.encryptPwd.encryption(password);
+        if (user != null && encryptedPwd.equals(user.getPassword())){
             if (Objects.equals(user.getRole(), "USER")) {
                 session.setAttribute("loggedIn", "USER");
                 session.setAttribute("userId", user.getId());
@@ -230,13 +239,17 @@ public class MainController {
 
     @RequestMapping(path = "/forgotPassword", method = RequestMethod.POST)
     public String forgotPassword(@RequestParam("email") String email, @RequestParam("securityQuestion") String question,
-                                 @RequestParam("securityAnswer") String answer, Model model, HttpSession session){
+                                 @RequestParam("securityAnswer") String answer, Model model, HttpSession session, HttpServletRequest request){
         User user = this.userService.getUserByEmail(email);
         if(this.userService.userExist(email)){
             if (question.equals(user.getSecurityQuestion()) && answer.equals(user.getSecurityAnswer())){
-                log.info("http://localhost:9595/SpringMVCProject/reset");
-                session.setAttribute("email", email);
-                model.addAttribute("error", "Reset link is sent to the log");
+                String encodeEmail = encoder.encodeToString(email.getBytes(Charset.forName("UTF-8")));
+                String url = request.getRequestURL().toString();
+                String stringToRemove = "forgotPassword";
+                String modifiedURL = url.replace(stringToRemove, "")+"reset/"+encodeEmail;
+                log.info(modifiedURL);
+//                session.setAttribute("email", email);
+                model.addAttribute("success", "Reset link is sent to the log");
             }else {
                 model.addAttribute("error", "Invalid Credential");
             }
@@ -246,10 +259,12 @@ public class MainController {
         return "forgot";
     }
 
-    @RequestMapping(path = "/resetPassword", method = RequestMethod.POST)
+    @RequestMapping(path = "/reset/Password", method = RequestMethod.POST)
     public String resetPassword(@RequestParam("email") String email, @RequestParam("password") String password){
+        byte[] bytes = decoder.decode(email);
+        String decodedEmail = new String(bytes, StandardCharsets.UTF_8);
         String encryptedPwd = this.encryptPwd.encryption(password);
-        this.userService.updatePassword(email,encryptedPwd);
+        this.userService.updatePassword(decodedEmail,encryptedPwd);
         return "redirect:/login";
     }
 
